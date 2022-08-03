@@ -1,16 +1,11 @@
-# aggie_athletics
+# Running Instructions
 
-A new Flutter project.
+Clone project to your preferred location
+```zsh
+git clone git@github.com:jorge-menjivar/aggie_athletics.git
+cd aggie_athletics
+```
 
-## Getting Started
+Make sure you have the Flutter plugin installed in your IDE and open `lib/main.dart` 
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+If using VS Code, press `F5` to run the app on a device
