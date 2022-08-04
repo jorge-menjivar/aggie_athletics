@@ -69,7 +69,7 @@ class AuthenticationState extends State<Authentication> {
   ThemeData lightTheme() {
     // Feel free to change
     // This is the light theme for the app.
-    // All colors and other UI cuztomizations should be done here.
+    // All colors and other UI customizations should be done here.
     return ThemeData(
       colorScheme: const ColorScheme(
           brightness: Brightness.light,

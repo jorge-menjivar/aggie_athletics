@@ -14,7 +14,6 @@ class BottomNavState extends State<BottomNav> {
   int _currentPage = 0;
   final _pageController = PageController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  var _appBarText = 'HackDavis 2022';
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,10 @@ class BottomNavState extends State<BottomNav> {
       body: PageView(
         controller: _pageController,
         children: [
+          // TODO: Home(scaffoldKey: _scaffoldKey),
           Calendar(scaffoldKey: _scaffoldKey),
+          // TODO: Rewards(scaffoldKey: _scaffoldKey)
+          // TODO: Profile(scaffoldKey: _scaffoldKey)
         ],
         onPageChanged: (index) {
           setState(() => _currentPage = index);
@@ -35,28 +37,24 @@ class BottomNavState extends State<BottomNav> {
           _pageController.jumpToPage(index);
           setState(() => _currentPage = index);
         },
-        items: <BottomBarItem>[
+        items: const <BottomBarItem>[
           BottomBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
-              activeColor: AppVariables.aggieRecPool),
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+            activeColor: AppVariables.aggieRecPool,
+          ),
           BottomBarItem(
-            icon: Icon(Icons.calendar_month_sharp),
+            icon: Icon(Icons.calendar_month),
             title: Text('Calendar'),
             activeColor: AppVariables.aggieGold,
           ),
           BottomBarItem(
-            icon: Icon(Icons.check),
-            title: Text('Check In'),
-            activeColor: AppVariables.aggieArboretum,
-          ),
-          BottomBarItem(
-            icon: Icon(Icons.card_giftcard_rounded),
+            icon: Icon(Icons.emoji_events),
             title: Text('Prizes'),
             activeColor: AppVariables.aggiePoppy,
           ),
           BottomBarItem(
-            icon: Icon(Icons.person_outline),
+            icon: Icon(Icons.person),
             title: Text('Profile'),
             activeColor: AppVariables.aggieTahoe,
           ),
