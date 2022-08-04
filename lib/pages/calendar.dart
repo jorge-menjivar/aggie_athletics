@@ -76,162 +76,157 @@ class _CalendarState extends State<Calendar>
       return SplashScreen();
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-      ),
-      body: Column(
-        children: [
-          TableCalendar(
-            firstDay: DateTime.utc(2010, 10, 16),
-            lastDay: DateTime.utc(2030, 3, 14),
-            focusedDay: _rangeStart,
-            currentDay: DateTime.now(),
-            rangeStartDay: _rangeStart,
-            rangeEndDay: _rangeEnd,
-            availableCalendarFormats: const {
-              CalendarFormat.month: "Month",
-              CalendarFormat.week: "Week"
-            },
-            calendarFormat: _calFormat,
-            headerStyle: const HeaderStyle(
-                formatButtonVisible: true,
-                decoration: BoxDecoration(color: Colors.blue)),
-            calendarStyle: CalendarStyle(),
-            onFormatChanged: (format) => {
-              setState(
-                () {
-                  switch (_calFormat) {
-                    case CalendarFormat.month:
-                      _calFormat = CalendarFormat.week;
-                      break;
-                    case CalendarFormat.week:
-                      _calFormat = CalendarFormat.month;
-                      break;
-                    default:
-                      _calFormat = CalendarFormat.week;
-                  }
-                },
-              )
-            },
-            onDayLongPressed: (selectedDay, focusedDay) {
-              setState(() {
-                if (selectedDay.day > _rangeEnd.day) {
-                  _rangeStart = focusedDay;
-                  _rangeEnd = focusedDay;
-                } else {
-                  _rangeStart = focusedDay;
+    return Column(
+      children: [
+        TableCalendar(
+          firstDay: DateTime.utc(2010, 10, 16),
+          lastDay: DateTime.utc(2030, 3, 14),
+          focusedDay: _rangeStart,
+          currentDay: DateTime.now(),
+          rangeStartDay: _rangeStart,
+          rangeEndDay: _rangeEnd,
+          availableCalendarFormats: const {
+            CalendarFormat.month: "Month",
+            CalendarFormat.week: "Week"
+          },
+          calendarFormat: _calFormat,
+          headerStyle: const HeaderStyle(
+              formatButtonVisible: true,
+              decoration: BoxDecoration(color: Colors.blue)),
+          calendarStyle: CalendarStyle(),
+          onFormatChanged: (format) => {
+            setState(
+              () {
+                switch (_calFormat) {
+                  case CalendarFormat.month:
+                    _calFormat = CalendarFormat.week;
+                    break;
+                  case CalendarFormat.week:
+                    _calFormat = CalendarFormat.month;
+                    break;
+                  default:
+                    _calFormat = CalendarFormat.week;
                 }
-              });
-            },
-            onDaySelected: (selectedDay, focusedDay) {
-              setState(() {
-                if (selectedDay.day >= _rangeStart.day) {
-                  _rangeEnd = focusedDay;
-                }
-              });
-            },
-          ),
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(12),
-              itemCount: _upcomingEvents.length,
-              itemBuilder: (itemBuilderContext, i) {
-                final upcomingEvent = _upcomingEvents[i].data();
+              },
+            )
+          },
+          onDayLongPressed: (selectedDay, focusedDay) {
+            setState(() {
+              if (selectedDay.day > _rangeEnd.day) {
+                _rangeStart = focusedDay;
+                _rangeEnd = focusedDay;
+              } else {
+                _rangeStart = focusedDay;
+              }
+            });
+          },
+          onDaySelected: (selectedDay, focusedDay) {
+            setState(() {
+              if (selectedDay.day >= _rangeStart.day) {
+                _rangeEnd = focusedDay;
+              }
+            });
+          },
+        ),
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.all(12),
+            itemCount: _upcomingEvents.length,
+            itemBuilder: (itemBuilderContext, i) {
+              final upcomingEvent = _upcomingEvents[i].data();
 
-                Timestamp t = upcomingEvent['time'];
-                var time = t.toDate();
-                var timeString =
-                    formatDate(time, [M, ' ', dd, ', ', h, ':', nn, ' ', am]);
+              Timestamp t = upcomingEvent['time'];
+              var time = t.toDate();
+              var timeString =
+                  formatDate(time, [M, ' ', dd, ', ', h, ':', nn, ' ', am]);
 
-                return Card(
-                  clipBehavior: Clip.antiAlias,
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide.none,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  margin: const EdgeInsets.all(6),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 200,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.contain,
-                            image: CachedNetworkImageProvider(
-                                upcomingEvent['photo_ref']),
-                          ),
+              return Card(
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide.none,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                margin: const EdgeInsets.all(6),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 200,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.contain,
+                          image: CachedNetworkImageProvider(
+                              upcomingEvent['photo_ref']),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(12),
-                        child: Stack(
-                          children: [
-                            Row(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      upcomingEvent['opponent'].toUpperCase(),
-                                      textAlign: TextAlign.left,
-                                      style: _biggerFont,
-                                    ),
-                                    Text(
-                                      upcomingEvent['sport'],
-                                      textAlign: TextAlign.left,
-                                      style: _biggerFont,
-                                    ),
-                                    Text(
-                                      upcomingEvent['location'],
-                                      textAlign: TextAlign.left,
-                                      style: _subFont,
-                                    ),
-                                    TextButton(
-                                      child: Text(
-                                        (upcomingEvent['tickets'] == 'free')
-                                            ? 'Free for Aggies'
-                                            : 'Buy',
-                                        style: TextStyle(
-                                            color: (upcomingEvent['tickets'] ==
-                                                    'free')
-                                                ? Colors.green
-                                                : null),
-                                      ),
-                                      onPressed: () {
-                                        launch(upcomingEvent['purchase']);
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Container(
-                              alignment: Alignment.centerRight,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.end,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(12),
+                      child: Stack(
+                        children: [
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    timeString,
-                                    style: _trailFont,
-                                    textAlign: TextAlign.right,
-                                  )
+                                    upcomingEvent['opponent'].toUpperCase(),
+                                    textAlign: TextAlign.left,
+                                    style: _biggerFont,
+                                  ),
+                                  Text(
+                                    upcomingEvent['sport'],
+                                    textAlign: TextAlign.left,
+                                    style: _biggerFont,
+                                  ),
+                                  Text(
+                                    upcomingEvent['location'],
+                                    textAlign: TextAlign.left,
+                                    style: _subFont,
+                                  ),
+                                  TextButton(
+                                    child: Text(
+                                      (upcomingEvent['tickets'] == 'free')
+                                          ? 'Free for Aggies'
+                                          : 'Buy',
+                                      style: TextStyle(
+                                          color: (upcomingEvent['tickets'] ==
+                                                  'free')
+                                              ? Colors.green
+                                              : null),
+                                    ),
+                                    onPressed: () {
+                                      launch(upcomingEvent['purchase']);
+                                    },
+                                  ),
                                 ],
                               ),
+                            ],
+                          ),
+                          Container(
+                            alignment: Alignment.centerRight,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  timeString,
+                                  style: _trailFont,
+                                  textAlign: TextAlign.right,
+                                )
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                );
-              },
-            ),
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -18,6 +18,9 @@ class BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Aggie Athletics'),
+      ),
       body: PageView(
         controller: _pageController,
         children: [
