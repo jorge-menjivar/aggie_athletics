@@ -1,4 +1,4 @@
-package com.example.aggie_athletics
+package edu.ucdavis.athletics
 
 import io.flutter.embedding.android.FlutterActivity
 
