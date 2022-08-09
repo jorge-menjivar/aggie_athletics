@@ -56,3 +56,7 @@ app.*.map.json
 **/*/GoogleService-Info.plist
 **/*/google-services.json
 **/*/firebase_options.dart
+
+# Server related
+/Server/node_modules
+/Server/.env
