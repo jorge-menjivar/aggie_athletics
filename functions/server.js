@@ -1,5 +1,6 @@
-const express = require('express')
+const express = require('express');
 const axios = require("axios");
+const functions = require('firebase-functions');
 require('dotenv').config();
 
 const app = express();
@@ -13,7 +14,11 @@ const app_url = "https%3A%2F%2Fwwww.aggierewards.com";
 app.use(express.json);
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send("Hello world");
+})
+
+app.get('/api/bing', (req, res) => {
+  res.json({bong: "bong"});
 });
 
 
@@ -51,3 +56,5 @@ app.get('/auth/validate', (req, res) => {
 app.listen(port, () => {
   console.log(`Aggie Rewards listening on port ${port}`)
 });
+
+exports.app = functions.https.onRequest(app);
