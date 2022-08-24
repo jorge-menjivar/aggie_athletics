@@ -1,3 +1,4 @@
+import 'package:aggie_athletics/pages/home.dart';
 import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'app_variables.dart';
@@ -24,7 +25,7 @@ class BottomNavState extends State<BottomNav> {
       body: PageView(
         controller: _pageController,
         children: [
-          // TODO: Home(scaffoldKey: _scaffoldKey),
+          Home(scaffoldKey: _scaffoldKey),
           Calendar(scaffoldKey: _scaffoldKey),
           // TODO: Rewards(scaffoldKey: _scaffoldKey)
           // TODO: Profile(scaffoldKey: _scaffoldKey)
