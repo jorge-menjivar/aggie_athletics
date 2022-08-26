@@ -1,3 +1,4 @@
+import 'package:aggie_athletics/pages/onboarding.dart';
 import 'package:flutter/material.dart';
 import '../app_variables.dart';
 import 'bottom_nav.dart';
@@ -60,7 +61,7 @@ class AuthenticationState extends State<Authentication> {
         theme: lightTheme(),
         darkTheme: darkTheme(),
         home: Scaffold(
-          body: (_authenticated) ? const BottomNav() : const BottomNav(),
+          body: (_authenticated) ? const BottomNav() : const Onboarding(),
         ),
       );
     }
