@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import 'sport_select.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -206,9 +207,9 @@ class _OnboardingState extends State<Onboarding> with AutomaticKeepAliveClientMi
                       // TODO: add shared preferences so everytime restart, don't show onboarding if they pass it
                       // this data stored on their phone
 
-                      // Navigator.of(context).pushReplacement(
-                      //   MaterialPageRoute(builder: (context) => SportSelect())
-                      // );
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => SportSelect())
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
